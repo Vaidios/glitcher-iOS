@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Camera View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="glitcherProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G4f-iv-AVV" userLabel="previewCameraView" customClass="PreviewCameraView" customModule="glitcherProject" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="0.058155415100000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aqn-dw-gih" userLabel="takenPhoto">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-Mg-khQ" userLabel="takePhoto">
+                                <rect key="frame" x="162" y="597" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="dIu-hp-AP4"/>
+                                </constraints>
+                                <state key="normal" title="Take"/>
+                                <connections>
+                                    <action selector="didTapOnTakePhotoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gU7-fc-XDb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-5j-SOR">
+                                <rect key="frame" x="24" y="607" width="55" height="30"/>
+                                <state key="normal" title="camRoll"/>
+                                <connections>
+                                    <action selector="showCameraRoll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DOe-cT-Dwq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1p-dN-MIR">
+                                <rect key="frame" x="304" y="607" width="65" height="30"/>
+                                <state key="normal" title="usePhoto"/>
+                                <connections>
+                                    <segue destination="Pi0-wD-MCh" kind="show" identifier="toManipPhoto" id="7Bf-OK-HrN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aK-Mh-JAT">
+                                <rect key="frame" x="153" y="569" width="68" height="30"/>
+                                <state key="normal" title="takeAgain"/>
+                                <connections>
+                                    <action selector="didTapOnRepeatButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yVh-bj-34Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="centerX" secondItem="q7O-Mg-khQ" secondAttribute="centerX" id="4Ae-IZ-vKz"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="top" secondItem="aqn-dw-gih" secondAttribute="top" id="7NN-hL-nGZ"/>
+                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="baseline" secondItem="bnf-5j-SOR" secondAttribute="baseline" id="7Qj-80-0vh"/>
+                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="577" id="BV3-jI-0CV"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="bottom" secondItem="aqn-dw-gih" secondAttribute="bottom" id="FcI-vs-T4E"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="centerX" secondItem="4aK-Mh-JAT" secondAttribute="centerX" id="HV3-qb-3vv"/>
+                            <constraint firstItem="4aK-Mh-JAT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="549" id="TCr-KG-jPo"/>
+                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="baseline" secondItem="j1p-dN-MIR" secondAttribute="baseline" id="U0Y-TI-XLA"/>
+                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="leading" secondItem="bnf-5j-SOR" secondAttribute="trailing" constant="83" id="UiR-Gz-Mxr"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="trailing" secondItem="aqn-dw-gih" secondAttribute="trailing" id="XoD-zG-4cn"/>
+                            <constraint firstAttribute="bottom" secondItem="q7O-Mg-khQ" secondAttribute="bottom" constant="20" symbolic="YES" id="aQs-4j-nbA"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="d7b-Uh-1fR"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fex-41-tc1"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="lnn-jY-uEF"/>
+                            <constraint firstItem="4aK-Mh-JAT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="153" id="nZn-uf-EcC"/>
+                            <constraint firstItem="j1p-dN-MIR" firstAttribute="leading" secondItem="q7O-Mg-khQ" secondAttribute="trailing" constant="92" id="pf8-sp-oXh"/>
+                            <constraint firstAttribute="trailing" secondItem="G4f-iv-AVV" secondAttribute="trailing" id="q05-gy-52W"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="leading" secondItem="aqn-dw-gih" secondAttribute="leading" id="rn4-Ba-IW6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="cameraRollOutlet" destination="bnf-5j-SOR" id="7Kv-NP-ias"/>
+                        <outlet property="previewView" destination="G4f-iv-AVV" id="1mP-eO-rWI"/>
+                        <outlet property="repeatPhotoOutlet" destination="4aK-Mh-JAT" id="Qt0-Cz-JZZ"/>
+                        <outlet property="takePhotoOutlet" destination="q7O-Mg-khQ" id="oER-dm-BG7"/>
+                        <outlet property="takenPhoto" destination="aqn-dw-gih" id="7yC-dn-NLQ"/>
+                        <outlet property="useTakenPhotoOutlet" destination="j1p-dN-MIR" id="gB2-bc-geA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+        </scene>
+        <!--Manipulate Photo View Controller-->
+        <scene sceneID="hcM-Th-9nJ">
+            <objects>
+                <viewController id="Pi0-wD-MCh" customClass="ManipulatePhotoViewController" customModule="glitcherProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AI5-Oz-oKX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lHk-X2-j2n">
+                                <rect key="frame" x="16" y="33" width="343" height="481"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiI-bz-csy">
+                                <rect key="frame" x="1" y="0.0" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Take Photo"/>
+                                <connections>
+                                    <action selector="goToTakePhoto:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="dBx-xB-DMm"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vw-w8-SZQ">
+                                <rect key="frame" x="0.0" y="551" width="375" height="116"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaD-pU-bht">
+                                <rect key="frame" x="98" y="522" width="178" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Process Image with effect"/>
+                                <connections>
+                                    <action selector="processImageButton:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="3wB-fh-MtD"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xZL-v8-Pr9">
+                                <rect key="frame" x="16" y="517" width="343" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="VXE-Ym-WrS"/>
+                    </view>
+                    <connections>
+                        <outlet property="effectPicker" destination="2vw-w8-SZQ" id="YEY-A3-Mb8"/>
+                        <outlet property="photoPreview" destination="lHk-X2-j2n" id="4L4-rP-toI"/>
+                        <outlet property="progressBar" destination="xZL-v8-Pr9" id="l0J-bh-0c3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jcN-lK-PRY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="908" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+</document>
