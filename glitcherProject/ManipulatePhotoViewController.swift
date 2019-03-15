@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import TransitionButton
 import UIKit
 
-class ManipulatePhotoViewController: UIViewController {
+class ManipulatePhotoViewController: CustomTransitionViewController {
     var imageProcessor: ImageProcessing = ImageProcessing()
     
     @IBOutlet weak var progressBar: UIProgressView!
@@ -23,6 +24,7 @@ class ManipulatePhotoViewController: UIViewController {
     var photoDataUIImage: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveToLibraryOutlet.isHidden = true
         progressBar.progress = 0
         imageProcessor.delegate = self
         if imageProcessor.delegate != nil {
@@ -78,6 +80,29 @@ class ManipulatePhotoViewController: UIViewController {
         }
         
     }
+    
+    
+    @IBOutlet weak var saveToLibraryOutlet: UIButton!
+    
+    @IBAction func saveToLibrary(_ sender: Any) {
+        guard let imageToBeSaved = photoPreview.image else {return}
+        UIImageWriteToSavedPhotosAlbum(imageToBeSaved, self, #selector(didImageSaveSuccess(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    @objc func didImageSaveSuccess(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    
 }
 
 extension ManipulatePhotoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -100,7 +125,13 @@ extension ManipulatePhotoViewController: UIPickerViewDelegate, UIPickerViewDataS
 extension ManipulatePhotoViewController: ImageProcessingDelegate {
     func loopInImageProcessing(_ percent: Float) {
         DispatchQueue.main.async {
+            if percent >= 0.99 {
+                print("Percent bigger than 90")
+                self.saveToLibraryOutlet.isHidden = false
+            }
+            print(percent)
             self.progressBar.progress = percent
+            
             print(percent)
         }
         

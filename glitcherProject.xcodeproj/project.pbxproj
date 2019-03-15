@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		509523E02DB2A8DF3733DF40 /* Pods_glitcherProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59DD4080AD1EAAAF02B3CA2 /* Pods_glitcherProject.framework */; };
 		AC1D0ED7222EDE5800A44CB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D0ED6222EDE5800A44CB1 /* AppDelegate.swift */; };
 		AC1D0ED9222EDE5800A44CB1 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D0ED8222EDE5800A44CB1 /* CameraViewController.swift */; };
 		AC1D0EDC222EDE5800A44CB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC1D0EDA222EDE5800A44CB1 /* Main.storyboard */; };
@@ -28,7 +29,9 @@
 		AC1D0EE8222EE03100A44CB1 /* PreviewCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCameraView.swift; sourceTree = "<group>"; };
 		AC1D0EEA222FC56200A44CB1 /* ManipulatePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManipulatePhotoViewController.swift; sourceTree = "<group>"; };
 		AC1D0EEE222FE3B700A44CB1 /* ImageProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessing.swift; sourceTree = "<group>"; };
-		ACFBF4AF223A59CF0020B114 /* glitcherProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = glitcherProject.entitlements; sourceTree = "<group>"; };
+		B59DD4080AD1EAAAF02B3CA2 /* Pods_glitcherProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_glitcherProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF95D1360CAEE30CCDBFC789 /* Pods-glitcherProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-glitcherProject.release.xcconfig"; path = "Target Support Files/Pods-glitcherProject/Pods-glitcherProject.release.xcconfig"; sourceTree = "<group>"; };
+		D069E46C4A6A904922014B26 /* Pods-glitcherProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-glitcherProject.debug.xcconfig"; path = "Target Support Files/Pods-glitcherProject/Pods-glitcherProject.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,17 +39,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509523E02DB2A8DF3733DF40 /* Pods_glitcherProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A1C41790F8FFD6B6A99AB9F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D069E46C4A6A904922014B26 /* Pods-glitcherProject.debug.xcconfig */,
+				BF95D1360CAEE30CCDBFC789 /* Pods-glitcherProject.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AC1D0ECA222EDE5800A44CB1 = {
 			isa = PBXGroup;
 			children = (
 				AC1D0ED5222EDE5800A44CB1 /* glitcherProject */,
 				AC1D0ED4222EDE5800A44CB1 /* Products */,
+				8A1C41790F8FFD6B6A99AB9F /* Pods */,
+				F8C51C56205A225F1B2E43E8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,7 +77,6 @@
 		AC1D0ED5222EDE5800A44CB1 /* glitcherProject */ = {
 			isa = PBXGroup;
 			children = (
-				ACFBF4AF223A59CF0020B114 /* glitcherProject.entitlements */,
 				AC1D0ED6222EDE5800A44CB1 /* AppDelegate.swift */,
 				AC1D0ED8222EDE5800A44CB1 /* CameraViewController.swift */,
 				AC1D0EEA222FC56200A44CB1 /* ManipulatePhotoViewController.swift */,
@@ -75,6 +90,14 @@
 			path = glitcherProject;
 			sourceTree = "<group>";
 		};
+		F8C51C56205A225F1B2E43E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B59DD4080AD1EAAAF02B3CA2 /* Pods_glitcherProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +105,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC1D0EE5222EDE5900A44CB1 /* Build configuration list for PBXNativeTarget "glitcherProject" */;
 			buildPhases = (
+				23F4172BEAE248CBA23B8AE3 /* [CP] Check Pods Manifest.lock */,
 				AC1D0ECF222EDE5800A44CB1 /* Sources */,
 				AC1D0ED0222EDE5800A44CB1 /* Frameworks */,
 				AC1D0ED1222EDE5800A44CB1 /* Resources */,
+				84AF1E3C067502B0569E7100 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -154,6 +179,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		23F4172BEAE248CBA23B8AE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-glitcherProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84AF1E3C067502B0569E7100 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-glitcherProject/Pods-glitcherProject-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-glitcherProject/Pods-glitcherProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AC1D0ECF222EDE5800A44CB1 /* Sources */ = {
@@ -308,6 +380,7 @@
 		};
 		AC1D0EE6222EDE5900A44CB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D069E46C4A6A904922014B26 /* Pods-glitcherProject.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -327,6 +400,7 @@
 		};
 		AC1D0EE7222EDE5900A44CB1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF95D1360CAEE30CCDBFC789 /* Pods-glitcherProject.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

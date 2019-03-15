@@ -220,24 +220,24 @@ class ImageProcessing: UIImage {
     }
     
     //sortbyalphachanges
-    func nanou2(_ inputData: [PixelData]) -> [PixelData]{
+    func nanou2(_ inputData: [PixelData]) -> [PixelData] {
         var returnArray = inputData
         let sizeOfData = inputData.count
         var percentDone: Float = 0
-        for i in 0..<sizeOfData{
+        for i in 0 ..< sizeOfData {
             percentDone = Float(i) /  Float(sizeOfData)
             if (i % (sizeOfData/100)) == 0 {
                 if let delegate = delegate {
                     delegate.loopInImageProcessing(percentDone)
                 }
             }
+            
             if i % 500 == 0  {
                 let random = Int(arc4random_uniform(UInt32((250))))
-                print(random)
                 if random + i < inputData.count {
-                    var sortable = inputData[i..<random + i]
+                    var sortable = inputData[ i ..< random + i ]
                     sortable.sort { $0.G < $1.B }
-                    returnArray.replaceSubrange(i..<random + i, with: sortable)
+                    returnArray.replaceSubrange(i ..< random + i, with: sortable)
                 }
             }
         }

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import TransitionButton
 
 class CameraViewController: UIViewController
 {
@@ -17,7 +18,7 @@ class CameraViewController: UIViewController
     
     @IBOutlet weak var cameraRollOutlet: UIButton!
     
-    @IBOutlet weak var useTakenPhotoOutlet: UIButton!
+    @IBOutlet weak var useTakenPhotoOutlet: TransitionButton!
     
     @IBOutlet weak var repeatPhotoOutlet: UIButton!
     //BUTTONs HANDLERS END
@@ -39,6 +40,9 @@ class CameraViewController: UIViewController
         repeatPhotoOutlet.isHidden = true
         useTakenPhotoOutlet.isHidden = true
         
+        
+        
+        
         self.previewView.videoPreviewLayer.session = self.session
         previewView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.configureSession()
@@ -49,23 +53,40 @@ class CameraViewController: UIViewController
     private let photoOutput = AVCapturePhotoOutput()
     //private let sessionQueue = DispatchQueue(label: "sessionqueue")
     
+    @IBAction func useTakenPhoto(_ sender: TransitionButton) {
+        sender.startAnimation()
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async {
+            DispatchQueue.main.async {
+                sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 4, completion: {
+                    self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
+                    
+                })
+            }
+        }
+        
+    }
+    
+    
     @IBAction func didTapOnTakePhotoButton(_ sender: UIButton)
     {
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
         sessionQueue.async {
             if let photoOutputConnection = self.photoOutput.connection(with: .video) {
                 photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+                var photoSettings = AVCapturePhotoSettings()
+                
+                if self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
+                    photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+                }
+                if self.videoDeviceInput.device.isFlashAvailable {
+                    photoSettings.flashMode = .off
+                }
+                self.photoOutput.capturePhoto(with: photoSettings, delegate: self)
+                print("Photo capture")
             }
-            var photoSettings = AVCapturePhotoSettings()
             
-            if self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
-                photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
-            }
-            if self.videoDeviceInput.device.isFlashAvailable {
-                photoSettings.flashMode = .off
-            }
-            self.photoOutput.capturePhoto(with: photoSettings, delegate: self)
-            print("Photo capture")
         }
         
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
@@ -87,11 +108,23 @@ class CameraViewController: UIViewController
         cleanUpToCamera()
     }
     
-    @IBAction func showCameraRoll(_ sender: Any) {
+    @IBAction func showCameraRoll(_ sender: UIButton) {
         checkPermission()
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+        sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.20),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: UIView.AnimationOptions.allowUserInteraction,
+                       animations: {
+                        sender.transform = CGAffineTransform.identity
+        },
+                       completion: { Void in()  }
+        )
     }
     
     private enum SessionSetupResult {
@@ -191,7 +224,7 @@ class CameraViewController: UIViewController
     
     //Add photo output
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toManipPhoto" {
+        if segue.identifier == "customToManipPhoto" {
             if let vc = segue.destination as? ManipulatePhotoViewController
             {
                 vc.photoData = self.photoData

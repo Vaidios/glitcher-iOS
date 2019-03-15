@@ -19,40 +19,68 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G4f-iv-AVV" userLabel="previewCameraView" customClass="PreviewCameraView" customModule="glitcherProject" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="0.058155415100000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aqn-dw-gih" userLabel="takenPhoto">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-Mg-khQ" userLabel="takePhoto">
-                                <rect key="frame" x="162" y="597" width="50" height="50"/>
+                                <rect key="frame" x="8" y="50" width="360" height="480"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="dIu-hp-AP4"/>
+                                    <constraint firstAttribute="height" constant="480" id="8MZ-8N-dqY"/>
+                                    <constraint firstAttribute="width" constant="360" id="iFp-B5-I2g"/>
                                 </constraints>
-                                <state key="normal" title="Take"/>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aqn-dw-gih" userLabel="takenPhoto">
+                                <rect key="frame" x="8" y="50" width="360" height="480"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="480" id="Sdz-yg-RuL"/>
+                                    <constraint firstAttribute="width" constant="360" id="v33-xS-bbS"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-Mg-khQ" userLabel="takePhoto">
+                                <rect key="frame" x="148" y="567" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="3Vx-fb-KHQ"/>
+                                    <constraint firstAttribute="width" constant="80" id="OiV-Cb-YA2"/>
+                                </constraints>
+                                <state key="normal" image="shutter"/>
                                 <connections>
                                     <action selector="didTapOnTakePhotoButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gU7-fc-XDb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-5j-SOR">
-                                <rect key="frame" x="24" y="607" width="55" height="30"/>
-                                <state key="normal" title="camRoll"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1p-dN-MIR" customClass="TransitionButton" customModule="TransitionButton">
+                                <rect key="frame" x="295" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Bor-SQ-Wbs"/>
+                                    <constraint firstAttribute="width" constant="50" id="wt8-rz-d81"/>
+                                </constraints>
+                                <state key="normal" image="manipPhoto"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="spinnerColor">
+                                        <color key="value" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="useTakenPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Scc-tE-Den"/>
+                                </connections>
+                            </button>
+                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-5j-SOR">
+                                <rect key="frame" x="30" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="GGR-3m-t1s"/>
+                                    <constraint firstAttribute="height" constant="50" id="PyQ-nK-6iz"/>
+                                </constraints>
+                                <state key="normal" image="cameraRoll" backgroundImage="cameraRoll"/>
                                 <connections>
                                     <action selector="showCameraRoll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DOe-cT-Dwq"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1p-dN-MIR">
-                                <rect key="frame" x="304" y="607" width="65" height="30"/>
-                                <state key="normal" title="usePhoto"/>
-                                <connections>
-                                    <segue destination="Pi0-wD-MCh" kind="show" identifier="toManipPhoto" id="7Bf-OK-HrN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aK-Mh-JAT">
-                                <rect key="frame" x="153" y="569" width="68" height="30"/>
-                                <state key="normal" title="takeAgain"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aK-Mh-JAT">
+                                <rect key="frame" x="147" y="567" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="YB9-zM-hYv"/>
+                                    <constraint firstAttribute="width" constant="80" id="hrH-CU-b9U"/>
+                                </constraints>
+                                <state key="normal" image="takeAgain"/>
                                 <connections>
                                     <action selector="didTapOnRepeatButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yVh-bj-34Z"/>
                                 </connections>
@@ -60,24 +88,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="centerX" secondItem="q7O-Mg-khQ" secondAttribute="centerX" id="4Ae-IZ-vKz"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="top" secondItem="aqn-dw-gih" secondAttribute="top" id="7NN-hL-nGZ"/>
-                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="baseline" secondItem="bnf-5j-SOR" secondAttribute="baseline" id="7Qj-80-0vh"/>
-                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="577" id="BV3-jI-0CV"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="bottom" secondItem="aqn-dw-gih" secondAttribute="bottom" id="FcI-vs-T4E"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="centerX" secondItem="4aK-Mh-JAT" secondAttribute="centerX" id="HV3-qb-3vv"/>
-                            <constraint firstItem="4aK-Mh-JAT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="549" id="TCr-KG-jPo"/>
-                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="baseline" secondItem="j1p-dN-MIR" secondAttribute="baseline" id="U0Y-TI-XLA"/>
-                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="leading" secondItem="bnf-5j-SOR" secondAttribute="trailing" constant="83" id="UiR-Gz-Mxr"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="trailing" secondItem="aqn-dw-gih" secondAttribute="trailing" id="XoD-zG-4cn"/>
-                            <constraint firstAttribute="bottom" secondItem="q7O-Mg-khQ" secondAttribute="bottom" constant="20" symbolic="YES" id="aQs-4j-nbA"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="d7b-Uh-1fR"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fex-41-tc1"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="lnn-jY-uEF"/>
-                            <constraint firstItem="4aK-Mh-JAT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="153" id="nZn-uf-EcC"/>
-                            <constraint firstItem="j1p-dN-MIR" firstAttribute="leading" secondItem="q7O-Mg-khQ" secondAttribute="trailing" constant="92" id="pf8-sp-oXh"/>
-                            <constraint firstAttribute="trailing" secondItem="G4f-iv-AVV" secondAttribute="trailing" id="q05-gy-52W"/>
-                            <constraint firstItem="G4f-iv-AVV" firstAttribute="leading" secondItem="aqn-dw-gih" secondAttribute="leading" id="rn4-Ba-IW6"/>
+                            <constraint firstAttribute="trailing" secondItem="j1p-dN-MIR" secondAttribute="trailing" constant="30" id="AJu-xM-1ev"/>
+                            <constraint firstItem="j1p-dN-MIR" firstAttribute="leading" secondItem="4aK-Mh-JAT" secondAttribute="trailing" constant="68" id="BWN-ME-e7L"/>
+                            <constraint firstItem="q7O-Mg-khQ" firstAttribute="leading" secondItem="bnf-5j-SOR" secondAttribute="trailing" constant="68" id="ChB-3X-teg"/>
+                            <constraint firstItem="aqn-dw-gih" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="JwT-Hl-NoE"/>
+                            <constraint firstItem="bnf-5j-SOR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="NP6-sp-BQs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4aK-Mh-JAT" secondAttribute="bottom" constant="20" id="O6d-2x-d9m"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Uz3-4B-MPD"/>
+                            <constraint firstAttribute="bottom" secondItem="j1p-dN-MIR" secondAttribute="bottom" constant="30" id="W7p-s1-nIu"/>
+                            <constraint firstItem="G4f-iv-AVV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="X4B-4M-2Qt"/>
+                            <constraint firstItem="4aK-Mh-JAT" firstAttribute="leading" secondItem="bnf-5j-SOR" secondAttribute="trailing" constant="67" id="fvs-Qb-3dC"/>
+                            <constraint firstItem="aqn-dw-gih" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="kdX-jW-5Mt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="q7O-Mg-khQ" secondAttribute="bottom" constant="20" id="mf1-j7-UwV"/>
+                            <constraint firstItem="j1p-dN-MIR" firstAttribute="leading" secondItem="q7O-Mg-khQ" secondAttribute="trailing" constant="67" id="qrS-OQ-fOs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aqn-dw-gih" secondAttribute="trailing" constant="7" id="xj6-J2-VKv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bnf-5j-SOR" secondAttribute="bottom" constant="30" id="xkE-zG-ZZK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="G4f-iv-AVV" secondAttribute="trailing" constant="7" id="y0e-4o-kZ8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -88,6 +114,7 @@
                         <outlet property="takePhotoOutlet" destination="q7O-Mg-khQ" id="oER-dm-BG7"/>
                         <outlet property="takenPhoto" destination="aqn-dw-gih" id="7yC-dn-NLQ"/>
                         <outlet property="useTakenPhotoOutlet" destination="j1p-dN-MIR" id="gB2-bc-geA"/>
+                        <segue destination="Pi0-wD-MCh" kind="show" identifier="customToManipPhoto" animates="NO" id="JaV-Ab-xbr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -107,7 +134,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiI-bz-csy">
-                                <rect key="frame" x="1" y="0.0" width="76" height="30"/>
+                                <rect key="frame" x="14" y="617" width="76" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
@@ -115,7 +142,7 @@
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vw-w8-SZQ">
-                                <rect key="frame" x="0.0" y="551" width="375" height="116"/>
+                                <rect key="frame" x="98" y="551" width="178" height="116"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaD-pU-bht">
@@ -130,6 +157,14 @@
                                 <rect key="frame" x="16" y="517" width="343" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00G-oC-com">
+                                <rect key="frame" x="282" y="617" width="93" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add to library"/>
+                                <connections>
+                                    <action selector="saveToLibrary:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="oyI-rO-131"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="VXE-Ym-WrS"/>
@@ -138,6 +173,7 @@
                         <outlet property="effectPicker" destination="2vw-w8-SZQ" id="YEY-A3-Mb8"/>
                         <outlet property="photoPreview" destination="lHk-X2-j2n" id="4L4-rP-toI"/>
                         <outlet property="progressBar" destination="xZL-v8-Pr9" id="l0J-bh-0c3"/>
+                        <outlet property="saveToLibraryOutlet" destination="00G-oC-com" id="VQ1-ps-Eml"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcN-lK-PRY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -145,4 +181,10 @@
             <point key="canvasLocation" x="908" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cameraRoll" width="96" height="96"/>
+        <image name="manipPhoto" width="96" height="96"/>
+        <image name="shutter" width="96" height="96"/>
+        <image name="takeAgain" width="96" height="96"/>
+    </resources>
 </document>
