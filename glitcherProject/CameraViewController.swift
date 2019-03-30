@@ -21,7 +21,6 @@ class CameraViewController: UIViewController
     @IBOutlet weak var useTakenPhotoOutlet: TransitionButton!
     
     @IBOutlet weak var repeatPhotoOutlet: UIButton!
-    //BUTTONs HANDLERS END
     
     @IBOutlet weak var takenPhoto: UIImageView!
     
@@ -39,7 +38,10 @@ class CameraViewController: UIViewController
         takenPhoto.isHidden = true
         repeatPhotoOutlet.isHidden = true
         useTakenPhotoOutlet.isHidden = true
-        
+        useTakenPhotoOutlet.backgroundColor = .white
+        useTakenPhotoOutlet.setTitle("button", for: .normal)
+        //useTakenPhotoOutlet.cornerRadius = 0
+        useTakenPhotoOutlet.spinnerColor = .white
         
         
         
@@ -52,25 +54,24 @@ class CameraViewController: UIViewController
     }
     private let photoOutput = AVCapturePhotoOutput()
     //private let sessionQueue = DispatchQueue(label: "sessionqueue")
+    @IBAction func fetchMeCat(_ sender: Any) {
+        let url = URL(string: "https://api.thecatapi.com/v1/images/search")!
+        downloadImage(from: url)
+    }
     
     @IBAction func useTakenPhoto(_ sender: TransitionButton) {
-        sender.startAnimation()
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async {
-            DispatchQueue.main.async {
-                sender.stopAnimation(animationStyle: .expand, revertAfterDelay: 4, completion: {
-                    self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
-                    
-                })
-            }
-        }
-        
+        self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
+//        sender.startAnimation()
+//        sender.stopAnimation(animationStyle: .expand, completion: {
+//            self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
+//            
+//        })
     }
     
     
     @IBAction func didTapOnTakePhotoButton(_ sender: UIButton)
     {
+        //Analytics.logEvent("TapOnPhotoButton", parameters: ["PhotoID" : 15, "Type" : "PhotoType"])
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
         sessionQueue.async {
             if let photoOutputConnection = self.photoOutput.connection(with: .video) {
@@ -88,6 +89,7 @@ class CameraViewController: UIViewController
             }
             
         }
+        
         
         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         
@@ -153,13 +155,11 @@ class CameraViewController: UIViewController
          We do not create an AVCaptureMovieFileOutput because liveSession is not supported
          */
         session.sessionPreset = .photo
-        
-        //ADd video input
-        
+
         do {
             var defaultVideoDevice: AVCaptureDevice?
             
-            //Choose the back dual camera if available, otherwises dealut to wide angle
+            //Choose the back dual camera if available, otherwises default to wide angle
             
             if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
                 defaultVideoDevice = dualCameraDevice
@@ -315,6 +315,8 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
         case .denied :
             print("User denied access to photoLib")
             
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -331,6 +333,74 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+
+//Fetching cat photos from the web
+extension CameraViewController {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    func downloadCatImage(url: URL) {
+        self.getData(from: url) { catData, catResponse, catError in
+            guard let catData = catData, let catResponse = catResponse, catError == nil else {
+                print("Found nil Value")
+                return
+            }
+            let catString = catResponse.suggestedFilename!
+            let catImage = UIImage(data: catData)
+            if catImage == nil { print("Could't create Image from data") }
+            print("Name of file is \(catString)")
+            if catString.contains(".jpg") || catString.contains(".png") {
+                print("File contains .jpg or .png")
+                let catImage = UIImage(data: catData)
+                DispatchQueue.main.async {
+                    self.cleanUpWithReadyPhoto()
+                    self.takenPhoto.image = catImage
+                    self.photoDataUIImage = catImage
+                    print("Image saved to TakenPhoto")
+                }
+            } else {
+                self.downloadCatImage(url: url)
+            }
+        }
+    }
+    func downloadImage(from url: URL) {
+        print("Downloading image")
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let object = json as? [Any] {
+                for anItem in object as! [Dictionary<String, AnyObject>] {
+                    let catStringURL = anItem["url"] as! String
+                    let catURL = URL(string: catStringURL)!
+                    //self.downloadCatImage(url: catURL)
+                    self.getData(from: catURL) { catData, catResponse, catError in
+                        guard let catData = catData, let catResponse = catResponse, catError == nil else {
+                            print("Found nil Value")
+                            return
+                        }
+                        let catString = catResponse.suggestedFilename!
+                        let catImage = UIImage(data: catData)
+                        if catImage == nil { print("Could't create Image from data") }
+                        print("Name of file is \(catString)")
+                        if catString.contains(".jpg") || catString.contains(".png") {
+                            print("File contains .jpg or .png")
+                            let catImage = UIImage(data: catData)
+                            DispatchQueue.main.async {
+                                self.cleanUpWithReadyPhoto()
+                                self.takenPhoto.image = catImage
+                                self.photoDataUIImage = catImage
+                                print("Image saved to TakenPhoto")
+                            }
+                        } else {
+                            self.downloadImage(from: url)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -15,6 +15,7 @@ protocol ImageProcessingDelegate: AnyObject {
 class ImageProcessing: UIImage {
     var imageToProcess: UIImage?
     weak var delegate: ImageProcessingDelegate?
+    
     func processImageWithEffect(effect: availableEffects) -> UIImage?
     {
         if let imageToProcess = imageToProcess {
@@ -46,8 +47,7 @@ class ImageProcessing: UIImage {
         
         return nil
     }
-    public func imageToArrayUInt8(_ image: UIImage) -> [UInt8]?
-    {
+    public func imageToArrayUInt8(_ image: UIImage) -> [UInt8]? {
         //Size of image
         let size = image.size
         print("Size of the image for which context will be created \(size)")
@@ -60,14 +60,11 @@ class ImageProcessing: UIImage {
         }
 
         let ciContext = CIContext(cgContext: cgContext, options: nil)
-//        guard let cgImage = image.cgImage else {
-//            print("No CGImage avaiable")
-//            return nil}
         if let cgImage = image.cgImage {
             cgContext.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
             print("imageToArrayUInt8 Success from cgImage")
             return imagePixelData
-        } else if let ciImage = image.ciImage{
+        } else if let ciImage = image.ciImage {
             
             guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else {
                     print("Couldn't create CGImage from CiImage")
@@ -79,16 +76,12 @@ class ImageProcessing: UIImage {
                 
             
         }
-//        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//        print("imageToArrayUInt8 Success")
-//        return imagePixelData
         
         //Calculating size with four channels
         print("[ERROR] Couldn't create imagePixelData")
         return nil
     }
-    func arrayToPixelData(_ imageArray: [UInt8]) -> [PixelData]
-    {
+    func arrayToPixelData(_ imageArray: [UInt8]) -> [PixelData] {
         var index: Int = 0
         var pixelData: [PixelData] = []
         for _ in imageArray
@@ -121,15 +114,14 @@ class ImageProcessing: UIImage {
         let cfData = NSData(data: data) as CFData
         let provider: CGDataProvider! = CGDataProvider(data: cfData)
         
-        if let cgImage: CGImage = CGImage(width: width, height: height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: pixelDataSize * width, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue), provider: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
-        {
+        if let cgImage: CGImage = CGImage(width: width, height: height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: pixelDataSize * width, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue), provider: provider, decode: nil, shouldInterpolate: true, intent: .defaultIntent) {
             return UIImage(cgImage: cgImage)
         }
         
         return nil
     }
-    func imageInitialProcessing(_ image: UIImage) -> [PixelData]?
-    {
+    
+    func imageInitialProcessing(_ image: UIImage) -> [PixelData]? {
         if imageToProcess != nil {
             let fixedImage = fixOrientation(image: imageToProcess!)
             if let arrayUInt8 = imageToArrayUInt8(fixedImage)
@@ -143,6 +135,7 @@ class ImageProcessing: UIImage {
         print("Initial processing failed")
         return nil
     }
+    
     func fixOrientation(image: UIImage) -> UIImage {
         assert(image.size.height > 0)
         if image.imageOrientation == UIImage.Orientation.up {
@@ -150,7 +143,7 @@ class ImageProcessing: UIImage {
         }
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
         image.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-        let normalizedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return normalizedImage;
@@ -180,8 +173,6 @@ class ImageProcessing: UIImage {
                     delegate.loopInImageProcessing(percentDone)
                 }
             }
-            
-            //delegate?.loopInImageProcessing(percentDone)
             if i % 100 == 0 {
                 let random = Int(arc4random_uniform(UInt32((100))))
                 if random + i < sizeOfData {
@@ -222,11 +213,11 @@ class ImageProcessing: UIImage {
     //sortbyalphachanges
     func nanou2(_ inputData: [PixelData]) -> [PixelData] {
         var returnArray = inputData
-        let sizeOfData = inputData.count
+        let dataLength = inputData.count
         var percentDone: Float = 0
-        for i in 0 ..< sizeOfData {
-            percentDone = Float(i) /  Float(sizeOfData)
-            if (i % (sizeOfData/100)) == 0 {
+        for i in 0 ..< dataLength {
+            percentDone = Float(i) /  Float(dataLength)
+            if (i % (dataLength/100)) == 0 {
                 if let delegate = delegate {
                     delegate.loopInImageProcessing(percentDone)
                 }
@@ -234,7 +225,7 @@ class ImageProcessing: UIImage {
             
             if i % 500 == 0  {
                 let random = Int(arc4random_uniform(UInt32((250))))
-                if random + i < inputData.count {
+                if random + i < dataLength {
                     var sortable = inputData[ i ..< random + i ]
                     sortable.sort { $0.G < $1.B }
                     returnArray.replaceSubrange(i ..< random + i, with: sortable)

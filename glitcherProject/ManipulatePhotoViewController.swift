@@ -10,9 +10,8 @@ import Foundation
 import TransitionButton
 import UIKit
 
-class ManipulatePhotoViewController: CustomTransitionViewController {
+class ManipulatePhotoViewController: UIViewController{
     var imageProcessor: ImageProcessing = ImageProcessing()
-    
     @IBOutlet weak var progressBar: UIProgressView!
     
     @IBOutlet weak var effectPicker: UIPickerView!

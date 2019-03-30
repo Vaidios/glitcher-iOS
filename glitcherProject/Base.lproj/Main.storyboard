@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -58,6 +58,12 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="spinnerColor">
                                         <color key="value" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                        <color key="value" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="useTakenPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Scc-tE-Den"/>
@@ -83,6 +89,14 @@
                                 <state key="normal" image="takeAgain"/>
                                 <connections>
                                     <action selector="didTapOnRepeatButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yVh-bj-34Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ylV-b8-qUq">
+                                <rect key="frame" x="35" y="538" width="40" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="🐱"/>
+                                <connections>
+                                    <action selector="fetchMeCat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S7S-lT-NQp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -114,7 +128,7 @@
                         <outlet property="takePhotoOutlet" destination="q7O-Mg-khQ" id="oER-dm-BG7"/>
                         <outlet property="takenPhoto" destination="aqn-dw-gih" id="7yC-dn-NLQ"/>
                         <outlet property="useTakenPhotoOutlet" destination="j1p-dN-MIR" id="gB2-bc-geA"/>
-                        <segue destination="Pi0-wD-MCh" kind="show" identifier="customToManipPhoto" animates="NO" id="JaV-Ab-xbr"/>
+                        <segue destination="Pi0-wD-MCh" kind="presentation" identifier="customToManipPhoto" modalTransitionStyle="flipHorizontal" id="JaV-Ab-xbr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,12 +143,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lHk-X2-j2n">
-                                <rect key="frame" x="16" y="33" width="343" height="481"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lHk-X2-j2n">
+                                <rect key="frame" x="8" y="50" width="360" height="480"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="480" id="12s-nq-Wty"/>
+                                    <constraint firstAttribute="width" constant="360" id="963-I9-fRp"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiI-bz-csy">
-                                <rect key="frame" x="14" y="617" width="76" height="30"/>
+                                <rect key="frame" x="16" y="617" width="76" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
@@ -146,17 +163,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaD-pU-bht">
-                                <rect key="frame" x="98" y="522" width="178" height="30"/>
+                                <rect key="frame" x="98" y="527" width="178" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Process Image with effect"/>
                                 <connections>
                                     <action selector="processImageButton:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="3wB-fh-MtD"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xZL-v8-Pr9">
-                                <rect key="frame" x="16" y="517" width="343" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </progressView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00G-oC-com">
                                 <rect key="frame" x="282" y="617" width="93" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -165,8 +178,17 @@
                                     <action selector="saveToLibrary:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="oyI-rO-131"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xZL-v8-Pr9">
+                                <rect key="frame" x="17" y="655" width="343" height="2"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lHk-X2-j2n" firstAttribute="top" secondItem="VXE-Ym-WrS" secondAttribute="top" constant="30" id="2q2-Xa-7Zm"/>
+                            <constraint firstItem="VXE-Ym-WrS" firstAttribute="trailing" secondItem="lHk-X2-j2n" secondAttribute="trailing" constant="7" id="X4Y-Fj-p88"/>
+                            <constraint firstItem="lHk-X2-j2n" firstAttribute="leading" secondItem="VXE-Ym-WrS" secondAttribute="leading" constant="8" id="bec-Uh-YQo"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="VXE-Ym-WrS"/>
                     </view>
                     <connections>
@@ -182,9 +204,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cameraRoll" width="96" height="96"/>
-        <image name="manipPhoto" width="96" height="96"/>
-        <image name="shutter" width="96" height="96"/>
-        <image name="takeAgain" width="96" height="96"/>
+        <image name="cameraRoll" width="120" height="120"/>
+        <image name="manipPhoto" width="120" height="120"/>
+        <image name="shutter" width="128" height="128"/>
+        <image name="takeAgain" width="120" height="120"/>
     </resources>
 </document>
