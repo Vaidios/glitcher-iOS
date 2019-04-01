@@ -15,8 +15,7 @@
 		AC1D0EE1222EDE5900A44CB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC1D0EDF222EDE5900A44CB1 /* LaunchScreen.storyboard */; };
 		AC1D0EE9222EE03100A44CB1 /* PreviewCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D0EE8222EE03100A44CB1 /* PreviewCameraView.swift */; };
 		AC1D0EEB222FC56200A44CB1 /* ManipulatePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D0EEA222FC56200A44CB1 /* ManipulatePhotoViewController.swift */; };
-		AC1D0EEF222FE3B700A44CB1 /* ImageProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D0EEE222FE3B700A44CB1 /* ImageProcessing.swift */; };
-		ACFBF4B1224016300020B114 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFBF4B0224016300020B114 /* GoogleService-Info.plist */; };
+		ACE4CCE12250E3EA002091BD /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE4CCE02250E3EA002091BD /* ImageProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +28,7 @@
 		AC1D0EE2222EDE5900A44CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC1D0EE8222EE03100A44CB1 /* PreviewCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCameraView.swift; sourceTree = "<group>"; };
 		AC1D0EEA222FC56200A44CB1 /* ManipulatePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManipulatePhotoViewController.swift; sourceTree = "<group>"; };
-		AC1D0EEE222FE3B700A44CB1 /* ImageProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessing.swift; sourceTree = "<group>"; };
-		ACFBF4B0224016300020B114 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ACE4CCE02250E3EA002091BD /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		B59DD4080AD1EAAAF02B3CA2 /* Pods_glitcherProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_glitcherProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF95D1360CAEE30CCDBFC789 /* Pods-glitcherProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-glitcherProject.release.xcconfig"; path = "Target Support Files/Pods-glitcherProject/Pods-glitcherProject.release.xcconfig"; sourceTree = "<group>"; };
 		D069E46C4A6A904922014B26 /* Pods-glitcherProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-glitcherProject.debug.xcconfig"; path = "Target Support Files/Pods-glitcherProject/Pods-glitcherProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,13 +76,12 @@
 		AC1D0ED5222EDE5800A44CB1 /* glitcherProject */ = {
 			isa = PBXGroup;
 			children = (
-				ACFBF4B0224016300020B114 /* GoogleService-Info.plist */,
 				AC1D0ED6222EDE5800A44CB1 /* AppDelegate.swift */,
 				AC1D0ED8222EDE5800A44CB1 /* CameraViewController.swift */,
 				AC1D0EEA222FC56200A44CB1 /* ManipulatePhotoViewController.swift */,
 				AC1D0EDA222EDE5800A44CB1 /* Main.storyboard */,
 				AC1D0EDD222EDE5900A44CB1 /* Assets.xcassets */,
-				AC1D0EEE222FE3B700A44CB1 /* ImageProcessing.swift */,
+				ACE4CCE02250E3EA002091BD /* ImageProcessor.swift */,
 				AC1D0EE8222EE03100A44CB1 /* PreviewCameraView.swift */,
 				AC1D0EDF222EDE5900A44CB1 /* LaunchScreen.storyboard */,
 				AC1D0EE2222EDE5900A44CB1 /* Info.plist */,
@@ -176,7 +173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC1D0EE1222EDE5900A44CB1 /* LaunchScreen.storyboard in Resources */,
-				ACFBF4B1224016300020B114 /* GoogleService-Info.plist in Resources */,
 				AC1D0EDE222EDE5900A44CB1 /* Assets.xcassets in Resources */,
 				AC1D0EDC222EDE5800A44CB1 /* Main.storyboard in Resources */,
 			);
@@ -243,8 +239,8 @@
 				AC1D0ED9222EDE5800A44CB1 /* CameraViewController.swift in Sources */,
 				AC1D0EE9222EE03100A44CB1 /* PreviewCameraView.swift in Sources */,
 				AC1D0ED7222EDE5800A44CB1 /* AppDelegate.swift in Sources */,
-				AC1D0EEF222FE3B700A44CB1 /* ImageProcessing.swift in Sources */,
 				AC1D0EEB222FC56200A44CB1 /* ManipulatePhotoViewController.swift in Sources */,
+				ACE4CCE12250E3EA002091BD /* ImageProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

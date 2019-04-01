@@ -42,6 +42,7 @@ class ImageProcessor: UIImage {
 }
 
 //MARK: - Image Effects
+//TODO: - Add more effects
 extension ImageProcessor {
     private func effectCaronte(_ data: [PixelData]) -> [PixelData] {
         var finishedEverything = data
