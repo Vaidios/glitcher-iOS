@@ -40,11 +40,7 @@ class CameraViewController: UIViewController
         useTakenPhotoOutlet.isHidden = true
         useTakenPhotoOutlet.backgroundColor = .white
         useTakenPhotoOutlet.setTitle("button", for: .normal)
-        //useTakenPhotoOutlet.cornerRadius = 0
         useTakenPhotoOutlet.spinnerColor = .white
-        
-        
-        
         self.previewView.videoPreviewLayer.session = self.session
         previewView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.configureSession()
@@ -53,7 +49,6 @@ class CameraViewController: UIViewController
         
     }
     private let photoOutput = AVCapturePhotoOutput()
-    //private let sessionQueue = DispatchQueue(label: "sessionqueue")
     @IBAction func fetchMeCat(_ sender: Any) {
         let url = URL(string: "https://api.thecatapi.com/v1/images/search")!
         downloadImage(from: url)
@@ -61,17 +56,10 @@ class CameraViewController: UIViewController
     
     @IBAction func useTakenPhoto(_ sender: TransitionButton) {
         self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
-//        sender.startAnimation()
-//        sender.stopAnimation(animationStyle: .expand, completion: {
-//            self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
-//            
-//        })
     }
-    
     
     @IBAction func didTapOnTakePhotoButton(_ sender: UIButton)
     {
-        //Analytics.logEvent("TapOnPhotoButton", parameters: ["PhotoID" : 15, "Type" : "PhotoType"])
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
         sessionQueue.async {
             if let photoOutputConnection = self.photoOutput.connection(with: .video) {
@@ -221,18 +209,19 @@ class CameraViewController: UIViewController
         
         session.commitConfiguration()
     }
-    
-    //Add photo output
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "customToManipPhoto" {
             if let vc = segue.destination as? ManipulatePhotoViewController
             {
-                vc.photoData = self.photoData
-                vc.photoDataUIImage = self.photoDataUIImage
+                vc.imageToManip = self.photoDataUIImage
                 cleanUpToCamera()
             }
         }
     }
+}
+
+//MARK: - Clean Up functions
+extension CameraViewController {
     private func cleanUpWithReadyPhoto() {
         useTakenPhotoOutlet.isHidden = false
         takenPhoto.isHidden = false
@@ -247,7 +236,6 @@ class CameraViewController: UIViewController
         repeatPhotoOutlet.isHidden = true
         useTakenPhotoOutlet.isHidden = true
     }
-    
 }
 
 extension AVCaptureVideoOrientation {
@@ -274,10 +262,7 @@ extension AVCaptureVideoOrientation {
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-    
-    
-    
-    
+
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error returning photo \(error)")
@@ -295,7 +280,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
                 self.photoDataUIImage = UIImage(data: photoData)
                 print("Photo captured from delegate")
             }
-            
         }
     }
 }
@@ -337,7 +321,7 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
 }
 
 
-//Fetching cat photos from the web
+//MARK: - Fetch cat photos
 extension CameraViewController {
     func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()

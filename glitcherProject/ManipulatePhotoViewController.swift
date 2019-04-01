@@ -11,85 +11,67 @@ import TransitionButton
 import UIKit
 
 class ManipulatePhotoViewController: UIViewController{
-    var imageProcessor: ImageProcessing = ImageProcessing()
-    @IBOutlet weak var progressBar: UIProgressView!
     
+    @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var effectPicker: UIPickerView!
+    @IBOutlet weak var photoPreview: UIImageView!
+    var imageToManip: UIImage?
+    let imageProcessor = ImageProcessor()
     var isProcessing: Bool = false
     var pickerData: [String] = [String]()
     var selectedRow: Int = 0;
-    @IBOutlet weak var photoPreview: UIImageView!
-    var photoData: Data?
-    var photoDataUIImage: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
+        photoPreview.image = imageToManip
         saveToLibraryOutlet.isHidden = true
         progressBar.progress = 0
         imageProcessor.delegate = self
-        if imageProcessor.delegate != nil {
-            print("Image processor set")
-        }
         effectPicker.delegate = self
         effectPicker.dataSource = self
-        if let photoDataUIImage = self.photoDataUIImage {
-            photoPreview.image = photoDataUIImage
-            imageProcessor.imageToProcess = photoDataUIImage
-        }
-        
-        pickerData = ["someEffect", "blueCalX", "nanou2"]
+        pickerData = ["Caronte", "Dawan", "VOI_DO"]
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    @IBAction func goToTakePhoto(_ sender: Any) {
+    
+    @IBAction func didTapOnTakePhoto(_ sender: Any) {
         photoPreview.image = nil
-        photoDataUIImage = nil
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func processImageButton(_ sender: Any) {
+    @IBAction func didTapOnProcessImage(_ sender: Any) {
         var processedImage: UIImage?
+        guard let imageToProcess = photoPreview.image else {
+            print("[ManipulatePhoto] unable to retrive Image from UIImageView")
+            return
+        }
         if !isProcessing {
             isProcessing = true
-            if imageProcessor.imageToProcess != nil {
-                    DispatchQueue.global().async {
-                        switch self.selectedRow {
-                        case 0:
-                            print(self.selectedRow)
-                            processedImage = self.imageProcessor.processImageWithEffect(effect: .someEffect)
-                        case 1: print(self.selectedRow)
-                        processedImage = self.imageProcessor.processImageWithEffect(effect: .blueCalX)
-                        case 2:
-                            processedImage = self.imageProcessor.processImageWithEffect(effect: .nanou2)
-                        default: print("Nothing chosen \(self.selectedRow)")
-                        }
-                        if processedImage != nil {
-                            print("Done processing")
-                        } else {
-                            print("Processing failed")
-                        }
-                        self.isProcessing = false
-                        DispatchQueue.main.async {
-                            self.photoPreview.image = processedImage
-                        }
-                    }
-                
+            switch self.selectedRow {
+            case 0:
+                processedImage = self.imageProcessor.create(image: imageToProcess, with: .caronte)
+            case 1:
+                processedImage = self.imageProcessor.create(image: imageToProcess, with: .dawan)
+            case 2:
+                processedImage = self.imageProcessor.create(image: imageToProcess, with: .voi_do)
+            default:
+                break
             }
+            if processedImage != nil {
+                DispatchQueue.main.async {
+                    self.photoPreview.image = processedImage
+                }
+            }
+            self.isProcessing = false
         }
-        
     }
     
     
     @IBOutlet weak var saveToLibraryOutlet: UIButton!
     
     @IBAction func saveToLibrary(_ sender: Any) {
-        guard let imageToBeSaved = photoPreview.image else {return}
+        guard let imageToBeSaved = photoPreview.image else { return }
         UIImageWriteToSavedPhotosAlbum(imageToBeSaved, self, #selector(didImageSaveSuccess(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     @objc func didImageSaveSuccess(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            // we got back an error!
             let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
@@ -99,9 +81,6 @@ class ManipulatePhotoViewController: UIViewController{
             present(ac, animated: true)
         }
     }
-    
-    
-    
 }
 
 extension ManipulatePhotoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -121,18 +100,16 @@ extension ManipulatePhotoViewController: UIPickerViewDelegate, UIPickerViewDataS
     
 }
 
-extension ManipulatePhotoViewController: ImageProcessingDelegate {
-    func loopInImageProcessing(_ percent: Float) {
+extension ManipulatePhotoViewController: ImageProcessorDelegate {
+    func imageProcessor(_ imageProcessor: ImageProcessor, _ progress: Float) {
         DispatchQueue.main.async {
-            if percent >= 0.99 {
-                print("Percent bigger than 90")
+            if progress >= 0.99 {
                 self.saveToLibraryOutlet.isHidden = false
             }
-            print(percent)
-            self.progressBar.progress = percent
-            
-            print(percent)
+            print("[ImageProcessorDelegate] \(progress * 100)% done")
+            self.progressBar.progress = progress
         }
-        
     }
+    
+    
 }
