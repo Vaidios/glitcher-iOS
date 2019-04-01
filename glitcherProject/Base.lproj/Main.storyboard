@@ -155,7 +155,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
-                                    <action selector="goToTakePhoto:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="dBx-xB-DMm"/>
+                                    <action selector="didTapOnTakePhoto:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="rag-Y0-c3M"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vw-w8-SZQ">
@@ -167,7 +167,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Process Image with effect"/>
                                 <connections>
-                                    <action selector="processImageButton:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="3wB-fh-MtD"/>
+                                    <action selector="didTapOnProcessImage:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="wfR-0i-XKi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00G-oC-com">
