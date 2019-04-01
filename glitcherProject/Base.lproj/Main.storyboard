@@ -150,30 +150,40 @@
                                     <constraint firstAttribute="width" constant="360" id="963-I9-fRp"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiI-bz-csy">
-                                <rect key="frame" x="16" y="617" width="76" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take Photo"/>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vw-w8-SZQ">
+                                <rect key="frame" x="88" y="565" width="199" height="82"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiI-bz-csy">
+                                <rect key="frame" x="30" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="S2U-MW-Be2"/>
+                                    <constraint firstAttribute="height" constant="50" id="pnz-r6-TBq"/>
+                                </constraints>
+                                <state key="normal" title="Take Photo" image="takePhoto"/>
                                 <connections>
                                     <action selector="didTapOnTakePhoto:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="rag-Y0-c3M"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2vw-w8-SZQ">
-                                <rect key="frame" x="98" y="551" width="178" height="116"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaD-pU-bht">
-                                <rect key="frame" x="98" y="527" width="178" height="30"/>
+                                <rect key="frame" x="160" y="527" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Process Image with effect"/>
+                                <state key="normal" title="Process">
+                                    <color key="titleColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                                </state>
                                 <connections>
                                     <action selector="didTapOnProcessImage:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="wfR-0i-XKi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00G-oC-com">
-                                <rect key="frame" x="282" y="617" width="93" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add to library"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00G-oC-com">
+                                <rect key="frame" x="295" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="GPA-Pu-rPA"/>
+                                    <constraint firstAttribute="height" constant="50" id="eGM-dv-py5"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="hWh-Pq-toC"/>
+                                    <constraint firstAttribute="width" constant="50" id="nbE-WD-STp"/>
+                                </constraints>
+                                <state key="normal" title="Add to library" image="save"/>
                                 <connections>
                                     <action selector="saveToLibrary:" destination="Pi0-wD-MCh" eventType="touchUpInside" id="oyI-rO-131"/>
                                 </connections>
@@ -187,7 +197,11 @@
                         <constraints>
                             <constraint firstItem="lHk-X2-j2n" firstAttribute="top" secondItem="VXE-Ym-WrS" secondAttribute="top" constant="30" id="2q2-Xa-7Zm"/>
                             <constraint firstItem="VXE-Ym-WrS" firstAttribute="trailing" secondItem="lHk-X2-j2n" secondAttribute="trailing" constant="7" id="X4Y-Fj-p88"/>
+                            <constraint firstItem="VXE-Ym-WrS" firstAttribute="bottom" secondItem="00G-oC-com" secondAttribute="bottom" constant="30" id="Z7Z-4Q-MHk"/>
                             <constraint firstItem="lHk-X2-j2n" firstAttribute="leading" secondItem="VXE-Ym-WrS" secondAttribute="leading" constant="8" id="bec-Uh-YQo"/>
+                            <constraint firstItem="VXE-Ym-WrS" firstAttribute="trailing" secondItem="00G-oC-com" secondAttribute="trailing" constant="30" id="mfo-Ck-jGL"/>
+                            <constraint firstItem="YiI-bz-csy" firstAttribute="leading" secondItem="VXE-Ym-WrS" secondAttribute="leading" constant="30" id="nZg-Mz-6jr"/>
+                            <constraint firstItem="VXE-Ym-WrS" firstAttribute="bottom" secondItem="YiI-bz-csy" secondAttribute="bottom" constant="30" id="usT-OV-00z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VXE-Ym-WrS"/>
                     </view>
@@ -206,7 +220,9 @@
     <resources>
         <image name="cameraRoll" width="120" height="120"/>
         <image name="manipPhoto" width="120" height="120"/>
+        <image name="save" width="64" height="64"/>
         <image name="shutter" width="128" height="128"/>
         <image name="takeAgain" width="120" height="120"/>
+        <image name="takePhoto" width="128" height="128"/>
     </resources>
 </document>
