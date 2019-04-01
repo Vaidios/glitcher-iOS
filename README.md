@@ -6,7 +6,9 @@ There are three diffrent effects to choose from, make your decision (or don't) a
 Now you can save it to your photo library.
 
 
-
+![Screenshot](glitcherImageFiles/photo1.png?raw=true "First photo")
+![Screenshot](glitcherImageFiles/photo2.png?raw=true "First photo")
+![Screenshot](glitcherImageFiles/photo3.png?raw=true "First photo")
 
 
 
