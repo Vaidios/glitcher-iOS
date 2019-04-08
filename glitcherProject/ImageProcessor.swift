@@ -23,14 +23,17 @@ protocol ImageProcessorDelegate: AnyObject {
 class ImageProcessor: UIImage {
     var delegate: ImageProcessorDelegate?
     public func create(image: UIImage, with effect: Effect) -> UIImage? {
-        let fixedImage = image.fixOrientation()
-        //let smallerImage = UIImage.jp
-        let width = Int(fixedImage.size.width)
-        let height = Int(fixedImage.size.height)
-//        let width = Int(smallerImage.size.width)
-//        let height = Int(smallerImage.size.height)
+        let fixedImage = image//.fixOrientation()
+        print("Old size \(fixedImage.size)")
+//        let width = Int(fixedImage.size.width)
+//        let height = Int(fixedImage.size.height)
+        let resizedImage = fixedImage.imageWith(newSize: CGSize(width: fixedImage.size.width * 0.4, height: fixedImage.size.height * 0.4))
+        print("new size \(resizedImage.size)")
+        //let smallerImage = fixedImage.size.
+        let width = Int(resizedImage.size.width)
+        let height = Int(resizedImage.size.height)
 //        guard let dataBefore = smallerImage.createPixelData() else { return nil }
-        guard let dataBefore = fixedImage.createPixelData() else { return nil }
+        guard let dataBefore = resizedImage.createPixelData() else { return nil }
         var dataAfter = [PixelData]()
         switch effect {
         case .caronte:
@@ -41,8 +44,8 @@ class ImageProcessor: UIImage {
             print("[ImageProcessor] wrong enum")
         }
         guard let returnImage = UIImage.createImageFrom(pixelData: dataAfter, width: width, height: height) else { return nil }
-        print("Orientation of an image is \(returnImage.imageOrientation.hashValue)")
-        return returnImage.fixOrientation()
+        print("Orientation of an image is \(returnImage.imageOrientation.rawValue)")
+        return returnImage
     }
 }
 
@@ -162,5 +165,13 @@ extension UIImage {
         let fixedImage = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .up)
         print("[ImageProcessor] orientation fixed")
         return fixedImage
+    }
+    fileprivate func imageWith(newSize: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        let image = renderer.image { _ in
+            self.draw(in: CGRect.init(origin: CGPoint.zero, size: newSize))
+        }
+        
+        return image
     }
 }
