@@ -38,7 +38,7 @@ class ManipulatePhotoViewController: UIViewController{
     
     @IBAction func didTapOnProcessImage(_ sender: Any) {
         var processedImage: UIImage?
-        guard let imageToProcess = photoPreview.image else {
+        guard let imageToProcess = imageToManip else {
             print("[ManipulatePhoto] unable to retrive Image from UIImageView")
             return
         }

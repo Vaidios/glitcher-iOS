@@ -58,8 +58,7 @@ class CameraViewController: UIViewController
         self.performSegue(withIdentifier: "customToManipPhoto", sender: sender)
     }
     
-    @IBAction func didTapOnTakePhotoButton(_ sender: UIButton)
-    {
+    @IBAction func didTapOnTakePhotoButton(_ sender: UIButton) {
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
         sessionQueue.async {
             if let photoOutputConnection = self.photoOutput.connection(with: .video) {
@@ -269,13 +268,27 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         } else {
             if let photoData = photo.fileDataRepresentation()
             {
+                guard let takenPhoto = UIImage(data: photoData) else { return }
+                switch takenPhoto.imageOrientation {
+                case .up:
+                    print("Image orientation up")
+                case .down:
+                    print("Image orientation down")
+                case .left:
+                    print("Image orientation left")
+                case .right:
+                    print("Image orientation right")
+                default:
+                    print("Could't find image orientation of: \(takenPhoto.imageOrientation.rawValue)")
+                }
+
                 self.photoData = photoData
                 useTakenPhotoOutlet.isHidden = false
                 previewView.isHidden = true
-                takenPhoto.isHidden = false
+                self.takenPhoto.isHidden = false
                 repeatPhotoOutlet.isHidden = false
                 takePhotoOutlet.isHidden = true
-                takenPhoto.image = UIImage(data: photoData)
+                self.takenPhoto.image = UIImage(data: photoData)
                 self.photoData = photoData
                 self.photoDataUIImage = UIImage(data: photoData)
                 print("Photo captured from delegate")
@@ -309,7 +322,6 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
             cleanUpWithReadyPhoto()
             self.takenPhoto.image = pickedImage
             self.photoDataUIImage = pickedImage
-            //takenPhoto.image = UIImage(data: pickedImage)
             dismiss(animated: true, completion: nil)
         }
         let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as! CGImage

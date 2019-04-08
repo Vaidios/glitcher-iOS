@@ -23,16 +23,10 @@ protocol ImageProcessorDelegate: AnyObject {
 class ImageProcessor: UIImage {
     var delegate: ImageProcessorDelegate?
     public func create(image: UIImage, with effect: Effect) -> UIImage? {
-        let fixedImage = image//.fixOrientation()
-        print("Old size \(fixedImage.size)")
-//        let width = Int(fixedImage.size.width)
-//        let height = Int(fixedImage.size.height)
+        let fixedImage = image.fixedOrientation()!
         let resizedImage = fixedImage.imageWith(newSize: CGSize(width: fixedImage.size.width * 0.4, height: fixedImage.size.height * 0.4))
-        print("new size \(resizedImage.size)")
-        //let smallerImage = fixedImage.size.
         let width = Int(resizedImage.size.width)
         let height = Int(resizedImage.size.height)
-//        guard let dataBefore = smallerImage.createPixelData() else { return nil }
         guard let dataBefore = resizedImage.createPixelData() else { return nil }
         var dataAfter = [PixelData]()
         switch effect {
@@ -155,17 +149,6 @@ extension UIImage {
         print("[ImageProcessor] pixelData created successfully, in total \(imagePixelData.count) pixels.")
         return imagePixelData
     }
-    
-    fileprivate func fixOrientation() -> UIImage {
-        let image = self
-        if image.imageOrientation == UIImage.Orientation.up {
-            print("[ImageProcessor] orientation is correct")
-            return image
-        }
-        let fixedImage = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .up)
-        print("[ImageProcessor] orientation fixed")
-        return fixedImage
-    }
     fileprivate func imageWith(newSize: CGSize) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: newSize)
         let image = renderer.image { _ in
@@ -173,5 +156,69 @@ extension UIImage {
         }
         
         return image
+    }
+    func fixedOrientation() -> UIImage? {
+        guard imageOrientation != UIImage.Orientation.up else {
+            //This is default orientation, don't need to do anything
+            return self.copy() as? UIImage
+        }
+        
+        guard let cgImage = self.cgImage else {
+            //CGImage is not available
+            return nil
+        }
+        
+        guard let colorSpace = cgImage.colorSpace, let ctx = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil //Not able to create CGContext
+        }
+        
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        
+        switch imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi)
+            break
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2.0)
+            break
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi / -2.0)
+            break
+        case .up, .upMirrored:
+            break
+        @unknown default:
+            print("Could not find orientation of an image")
+        }
+        
+        //Flip image one more time if needed to, this is to prevent flipped image
+        switch imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform.translatedBy(x: size.width, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+            break
+        case .leftMirrored, .rightMirrored:
+            transform.translatedBy(x: size.height, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+        case .up, .down, .left, .right:
+            break
+        @unknown default:
+            print("Could not find orientation of an image")
+        }
+        
+        ctx.concatenate(transform)
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
+        default:
+            ctx.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            break
+        }
+        
+        guard let newCGImage = ctx.makeImage() else { return nil }
+        return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
     }
 }
