@@ -24,8 +24,12 @@ class ImageProcessor: UIImage {
     var delegate: ImageProcessorDelegate?
     public func create(image: UIImage, with effect: Effect) -> UIImage? {
         let fixedImage = image.fixOrientation()
+        //let smallerImage = UIImage.jp
         let width = Int(fixedImage.size.width)
         let height = Int(fixedImage.size.height)
+//        let width = Int(smallerImage.size.width)
+//        let height = Int(smallerImage.size.height)
+//        guard let dataBefore = smallerImage.createPixelData() else { return nil }
         guard let dataBefore = fixedImage.createPixelData() else { return nil }
         var dataAfter = [PixelData]()
         switch effect {
@@ -37,7 +41,8 @@ class ImageProcessor: UIImage {
             print("[ImageProcessor] wrong enum")
         }
         guard let returnImage = UIImage.createImageFrom(pixelData: dataAfter, width: width, height: height) else { return nil }
-        return returnImage
+        print("Orientation of an image is \(returnImage.imageOrientation.hashValue)")
+        return returnImage.fixOrientation()
     }
 }
 

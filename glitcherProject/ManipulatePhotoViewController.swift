@@ -44,22 +44,24 @@ class ManipulatePhotoViewController: UIViewController{
         }
         if !isProcessing {
             isProcessing = true
-            switch self.selectedRow {
-            case 0:
-                processedImage = self.imageProcessor.create(image: imageToProcess, with: .caronte)
-            case 1:
-                processedImage = self.imageProcessor.create(image: imageToProcess, with: .dawan)
-            case 2:
-                processedImage = self.imageProcessor.create(image: imageToProcess, with: .voi_do)
-            default:
-                break
-            }
-            if processedImage != nil {
-                DispatchQueue.main.async {
-                    self.photoPreview.image = processedImage
+            DispatchQueue.global().async {
+                switch self.selectedRow {
+                case 0:
+                    processedImage = self.imageProcessor.create(image: imageToProcess, with: .caronte)
+                case 1:
+                    processedImage = self.imageProcessor.create(image: imageToProcess, with: .dawan)
+                case 2:
+                    processedImage = self.imageProcessor.create(image: imageToProcess, with: .voi_do)
+                default:
+                    break
                 }
+                if processedImage != nil {
+                    DispatchQueue.main.async {
+                        self.photoPreview.image = processedImage
+                    }
+                }
+                self.isProcessing = false
             }
-            self.isProcessing = false
         }
     }
     
